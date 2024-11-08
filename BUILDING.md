@@ -1,8 +1,9 @@
 gRPC C++ - Building from source
 ===========================
 
-This document has detailed instructions on how to build gRPC C++ from source. Note that it only covers the build of gRPC itself and is meant for gRPC C++ contributors and/or power users. 
-Other should follow the user instructions. See the [How to use](https://github.com/grpc/grpc/tree/master/src/cpp#to-start-using-grpc-c) instructions for guidance on how to add gRPC as a dependency to a C++ application (there are several ways and system-wide installation is often not the best choice).
+* goal
+  * 👀how to build gRPC C++ -- from -- source👀
+  * [How to use -- via -- adding gRPC as a dependency | C++ application](https://github.com/grpc/grpc/tree/master/src/cpp#to-start-using-grpc-c)
 
 # Pre-requisites
 
@@ -25,32 +26,26 @@ If you are a contributor and plan to build and run tests, install the following 
 
 ## MacOS
 
-On a Mac, you will first need to
-install Xcode or
-[Command Line Tools for Xcode](https://developer.apple.com/download/more/)
-and then run the following command from a terminal:
+* install Xcode OR [CL Tools for Xcode](https://developer.apple.com/download/more/)
+* run
 
-```sh
- $ [sudo] xcode-select --install
-```
+  ```sh
+   $ [sudo] xcode-select --install
+  ```
+* install from [Homebrew](https://brew.sh)
 
-To build gRPC from source, you may need to install the following
-packages from [Homebrew](https://brew.sh):
+  ```sh
+   $ brew install autoconf automake libtool shtool
+  ```
 
-```sh
- $ brew install autoconf automake libtool shtool
-```
+* if you plan to build -- via -- CMake -> follow the instructions from https://cmake.org/download/
+* recommendation
+  * | building (== running `make`), set the `LIBTOOL` and `LIBTOOLIZE` environment variables
+    * Reason: 🧠 ensure you are using the version / installed by `brew` 🧠
 
-If you plan to build using CMake, follow the instructions from https://cmake.org/download/
-
-*Tip*: when building,
-you *may* want to explicitly set the `LIBTOOL` and `LIBTOOLIZE`
-environment variables when running `make` to ensure the version
-installed by `brew` is being used:
-
-```sh
- $ LIBTOOL=glibtool LIBTOOLIZE=glibtoolize make
-```
+      ```sh
+      $ LIBTOOL=glibtool LIBTOOLIZE=glibtoolize make
+      ```
 
 ## Windows
 
@@ -63,17 +58,19 @@ To prepare for cmake + Microsoft Visual C++ compiler build
 
 # Clone the repository (including submodules)
 
-Before building, you need to clone the gRPC github repository and download submodules containing source code
-for gRPC's dependencies (that's done by the `submodule` command or `--recursive` flag). Use following commands
-to clone the gRPC repository at the [latest stable release tag](https://github.com/grpc/grpc/releases)
+* clone this gRPC github repository
+* download submodules / contain source code for gRPC's dependencies
+  * done by the
+    * `submodule` command OR
+    * `--recursive` flag
 
 ## Unix
 
-```sh
- $ git clone -b RELEASE_TAG_HERE https://github.com/grpc/grpc
- $ cd grpc
- $ git submodule update --init
- ```
+  ```sh
+   $ git clone -b RELEASE_TAG_HERE https://github.com/grpc/grpc
+   $ cd grpc
+   $ git submodule update --init
+   ```
 
 ## Windows
 
@@ -88,6 +85,7 @@ with something else than `bazel` (e.g. `cmake`).
 
 # Build from source
 
+* TODO: 
 In the C++ world, there's no "standard" build system that would work for all supported use cases and on all supported platforms.
 Therefore, gRPC supports several major build systems, which should satisfy most users. Depending on your needs
 we recommend building using `bazel` or `cmake`.
