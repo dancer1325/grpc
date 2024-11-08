@@ -2,65 +2,55 @@
 
 ## Overview
 
-This document describes the command line tool that comes with gRPC repository.
-It is desirable to have command line tools written in other languages roughly
-follow the same syntax and flags.
-
-> [!NOTE]
-> At present, the tool needs to be built from source, and it should be moved out
-> to grpc-tools repository as a stand alone application once it is mature
-> enough. This tool in its current state though is not up to par in its
-> user-friendliness. Other tools in the ecosystem, for example,
-> [grpcurl](https://github.com/fullstorydev/grpcurl) are better maintained.
+* CL tool
+  * comes with gRPC repository
+  * requirements
+    * built -- from -- source
+  * next steps
+    * move out to grpc-tools repository / stand alone application
 
 ## Core functionality
 
-The command line tool can do the following things:
+* allows
+  * Send unary rpc
+  * about metadata
+    * attach
+    * display received ones
+  * handle common authentication to server
+  * Infer request/response types -- from -- server reflection result.
+  * Find the request/response types -- from a -- given proto file.
+  * Read
+    * proto request / text form.
+    * request / wire form
+      * | protobuf messages == serialized binary form
+  * Display proto response | text form.
+  * Write response / wire form -- to a -- file.
 
--   Send unary rpc.
--   Attach metadata and display received metadata.
--   Handle common authentication to server.
--   Infer request/response types from server reflection result.
--   Find the request/response types from a given proto file.
--   Read proto request in text form.
--   Read request in wire form (for protobuf messages, this means serialized
-    binary form).
--   Display proto response in text form.
--   Write response in wire form to a file.
-
-The command line tool should support the following things:
-
--   List server services and methods through server reflection.
--   Fine-grained auth control (such as, use this oauth token to talk to the
-    server).
--   Send streaming rpc.
+* should support
+  * list, through server reflection,  
+    * server services
+    * methods
+  * fine-grained auth control
+    * _Example:_ use this oauth token -- to talk to the -- server
+  * Send streaming rpc.
 
 ## Code location
 
-To use the tool, you need to get the grpc repository and make sure your system
-has the prerequisites for building grpc from source, given in the
-[installation instructions](../BUILDING.md).
+* requirements
+  * [installation instructions](../BUILDING.md)
+* build -- via -- `cmake`
 
-In order to build the grpc command line tool from a fresh clone of the grpc
-repository, you need to run the following command to update submodules:
+    ```
+    $ mkdir -p cmake/build
+    $ cd cmake/build
+    $ cmake -DgRPC_BUILD_TESTS=ON ../..
+    $ make grpc_cli
+    ```
 
-```
-git submodule update --init
-```
-
-Once the prerequisites are satisfied, you can build with cmake:
-
-```
-$ mkdir -p cmake/build
-$ cd cmake/build
-$ cmake -DgRPC_BUILD_TESTS=ON ../..
-$ make grpc_cli
-```
-
-The main file can be found at
-https://github.com/grpc/grpc/blob/master/test/cpp/util/grpc_cli.cc
+* main file is | https://github.com/grpc/grpc/blob/master/test/cpp/util/grpc_cli.cc
 
 ## Prerequisites
+* TODO:
 
 Most `grpc_cli` commands need the server to support server reflection. See
 guides for
